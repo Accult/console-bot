@@ -1,0 +1,1 @@
+# here can be implemented the API for the manager
