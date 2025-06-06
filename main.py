@@ -13,7 +13,7 @@ def main():
     print("\nWelcome to the Multi-Agent Chatbot!")
     print("Instructions:")
     print(" - Type your message and press Enter to chat.")
-    print(" - To address a specific agent, use @agent_tag (e.g., @sentinel).")
+    print(" - To address a specific agent, use @agent_tag (e.g., @sentinel, @finguide, @edubot).")
     print(" - Type `/reset` to restart the conversation.")
     print(" - Type `/exit` to quit.\n")
 

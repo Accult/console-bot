@@ -1,3 +1,5 @@
+import unicodedata
+
 from openai import OpenAI
 from interfaces.model import LLMInterface
 from config.base import (
@@ -9,6 +11,9 @@ from config.base import (
     OPENAI_FREQUENCY_PENALTY,
     OPENAI_PRESENCE_PENALTY,
 )
+
+def remove_surrogates(text):
+    return ''.join(c for c in text if unicodedata.category(c) != 'Cs')
 
 class OpenAIClient(LLMInterface):
     def __init__(self, max_tokens: int = OPENAI_MAX_TOKENS, temperature: float = OPENAI_TEMPERATURE):
@@ -29,7 +34,7 @@ class OpenAIClient(LLMInterface):
                 temperature=self.temperature,
             )
             result = response.choices[0].message.content
-            cleaned_result = result.encode('utf-8', errors='ignore').decode('utf-8', errors='ignore')
+            cleaned_result = remove_surrogates(result)
             return cleaned_result.strip()
         except Exception as e:
             return f"[ERROR] Failed to generate response: {str(e)}"
